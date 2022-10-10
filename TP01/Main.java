@@ -71,8 +71,12 @@ public class Main extends CRUD {
                     System.out.print("-> Nome: ");
                     conta.setNomePessoa(sc.next());
 
-                    System.out.print("-> CPF: ");
-                    conta.setCpf(sc.next());
+                    String in = "";
+                    do {
+                        System.out.print("-> CPF: ");
+                        in = sc.next();
+                    } while (in.length() != 11); // Enquanto o cpf não tiver 11 digitos continua no loop
+                    conta.setCpf(in);
 
                     System.out.print("-> Cidade: ");
                     conta.setCidade(sc.next());
@@ -86,8 +90,11 @@ public class Main extends CRUD {
                     }
                     conta.setEmail(email);
 
-                    System.out.print("-> Usuário: ");
-                    conta.setNomeUsuario(sc.next());
+                    do {
+                        System.out.print("-> Usuário: ");
+                        in = sc.next();
+                    } while (readByUser(raf, in).getNomeUsuario().equals(in)); // Enquanto o usuario já existir continua no loop
+                    conta.setNomeUsuario(in);
 
                     System.out.print("-> Senha: ");
                     conta.setSenha(sc.next());
