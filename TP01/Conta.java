@@ -1,4 +1,6 @@
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -110,5 +112,22 @@ public class Conta {
         baos.close();
 
         return baos.toByteArray(); // Retorna o array de bytes
+    }
+
+    public void fromByteArray(byte[] ba) throws IOException {
+        ByteArrayInputStream bais = new ByteArrayInputStream(ba); // Cria um array de bytes
+        DataInputStream dis = new DataInputStream(bais); // Cria um fluxo de dados
+        this.idConta = dis.readInt(); // Le o id da conta do array de bytes
+        this.nomePessoa = dis.readUTF(); // Le o nome da pessoa do array de bytes
+        this.qtdEmails = dis.readInt(); // Le a quantidade de emails do array de bytes
+        for(int i = 0; i < this.getQtdEmails(); i++){ // Le os emails do array de bytes
+            this.email[i] = dis.readUTF();
+        }
+        this.nomeUsuario = dis.readUTF(); // Le o nome de usuario do array de bytes
+        this.senha = dis.readUTF(); // Le a senha do array de bytes
+        this.cpf = dis.readUTF(); // Le o CPF do array de bytes
+        this.cidade = dis.readUTF(); // Le a cidade do array de bytes
+        this.transferenciasRealizadas = dis.readInt(); // Le a quantidade de transferencias realizadas do array de bytes
+        this.saldoConta = dis.readFloat(); // Le o saldo da conta do array de bytes
     }
 }

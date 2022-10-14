@@ -90,12 +90,18 @@ public class Main extends CRUD {
                     }
                     conta.setEmail(email);
 
-                    do {
+                    if(raf.length() > 5) { // Se o arquivo estiver vazio 
+                        do {
+                            System.out.print("-> Usuário: ");
+                            in = sc.next();
+                        } while (readByUser(raf, in).getNomeUsuario().equals(in)); // Enquanto o usuario já existir continua no loop
+                        conta.setNomeUsuario(in);
+                    }else {
                         System.out.print("-> Usuário: ");
                         in = sc.next();
-                    } while (readByUser(raf, in).getNomeUsuario().equals(in)); // Enquanto o usuario já existir continua no loop
-                    conta.setNomeUsuario(in);
-
+                        conta.setNomeUsuario(in);
+                    }
+                    
                     System.out.print("-> Senha: ");
                     conta.setSenha(sc.next());
 
@@ -295,7 +301,29 @@ public class Main extends CRUD {
                     break;
                 case 6: // Intercalar registros
                     System.out.println("____________INTERCALAR____________");
-                    // TODO
+                    System.out.println("Deseja realmente intercalar os registros?");
+                    System.out.println("-> 1 - Sim");
+                    System.out.println("-> 2 - Não");
+                    System.out.print("-> ");
+
+                    do {
+                        try {
+                            opcao = sc.nextInt();
+                            if(opcao < 1 || opcao > 2) System.out.println("-> Opção inválida!");
+                        } catch (Exception e) {
+                            System.out.println("-> Digite um número!");
+                            sc.next();
+                            break;
+                        }
+                    } while (opcao < 1 || opcao > 2); // Enquanto a opção for inválida continua no loop
+
+                    if(opcao == 1) { // Se a opção for 1, intercala os registros                        
+                        if(Sort.intercalar(raf)) System.out.println("\n-> Intercalado com sucesso!");
+                        else System.out.println("\n-> Erro ao intercalar!");
+                        
+                    }
+                    else System.out.println("-> Cancelado!\n");
+
                     break;
                 case 7: // Sair
                     System.out.println("-> Saindo...");
