@@ -130,4 +130,8 @@ public class Conta {
         this.transferenciasRealizadas = dis.readInt(); // Le a quantidade de transferencias realizadas do array de bytes
         this.saldoConta = dis.readFloat(); // Le o saldo da conta do array de bytes
     }
+
+    public short size() throws IOException {
+        return (short)this.toByteArray().length;
+    }
 }
