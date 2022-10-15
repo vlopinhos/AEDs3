@@ -42,25 +42,28 @@ public class Main extends CRUD {
         while(loop) { // Loop do menu principal
             System.out.println("____________MENU____________");
             System.out.println("|                          |");
+            System.out.println("|0 - Sair                  |");
             System.out.println("|1 - Criar conta           |");
             System.out.println("|2 - Transferência         |");
             System.out.println("|3 - Ler registro          |");
             System.out.println("|4 - Atualizar registro    |");
             System.out.println("|5 - Deletar registro      |");
             System.out.println("|6 - Intercalar            |");
-            System.out.println("|7 - Sair                  |");
+            System.out.println("|7 - Árvore B+             |");
+            System.out.println("|8 - Hashing Extendido     |");
+            System.out.println("|9 - Lista Invertida       |");
             System.out.println("|__________________________|\n");
             System.out.print("-> ");
             do { 
                 try {
                     opcao = sc.nextInt();
-                    if(opcao < 1 || opcao > 7) System.out.println("-> Opção inválida!"); 
+                    if(opcao < 0 || opcao > 9) System.out.println("-> Opção inválida!"); 
                 } catch (Exception e) { // Se a opcao não for um numero
                     System.out.println("-> Digite um número!");
                     sc.nextLine();
                     break;
                 }
-            } while (opcao < 1 || opcao > 7); // Enquanto a opcao for invalida continua no loop
+            } while (opcao < 0 || opcao > 9); // Enquanto a opcao for invalida continua no loop
 
             switch (opcao) { // Menu principal
                 case 1: // Criar conta
@@ -325,7 +328,45 @@ public class Main extends CRUD {
                     else System.out.println("-> Cancelado!\n");
 
                     break;
-                case 7: // Sair
+                case 7:
+                    System.out.println("Arvore B+:");
+                    break;
+                case 8:
+                    System.out.println("Hashing Estendido:");
+                    break;
+                case 9:
+                    System.out.println("____________LISTAR____________");
+                    System.out.println("-> 1 - Nome");
+                    System.out.println("-> 2 - Cidade");
+                    System.out.print("-> ");
+
+                    do {
+                        try {
+                            opcao = sc.nextInt();
+                            if(opcao < 1 || opcao > 2) System.out.println("-> Opção inválida!");
+                        } catch (Exception e) {
+                            System.out.println("-> Digite um número!");
+                            sc.next();
+                            break;
+                        }
+                    } while (opcao < 1 || opcao > 2); // Enquanto a opção for inválida continua no loop
+
+                    if(opcao == 1) { // Se a opção for 1, lista por nome   
+                        System.out.print("\n-> Digite o nome: ");
+                        String name = sc.next();
+                        if(ListaInvertida.listarNome(raf, name)) System.out.println("\n-> Listado com sucesso!");
+                        else System.out.println("\n-> Erro ao listar!");
+                        
+                    }else if(opcao == 2) { // Se a opção for 2, lista por cidade
+                        System.out.print("\n-> Digite a cidade: ");
+                        String city = sc.next();
+                        if(ListaInvertida.listarCidade(raf, city)) System.out.println("\n-> Listado com sucesso!");
+                        else System.out.println("\n-> Erro ao listar!");
+                    }
+                    else System.out.println("-> Cancelado!\n");
+                    
+                    break;
+                case 0: // Sair
                     System.out.println("-> Saindo...");
                     loop = false;
                     loop = false;
