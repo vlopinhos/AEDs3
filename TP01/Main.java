@@ -328,28 +328,29 @@ public class Main extends CRUD {
                     else System.out.println("-> Cancelado!\n");
 
                     break;
-                case 7:
+                case 7: // Arvore B+
                     System.out.println("Arvore B+:");
                     break;
-                case 8:
+                case 8: // Hashing Extensível0
                     System.out.println("Hashing Estendido:");
                     break;
-                case 9:
+                case 9: // Lista Invertida
                     System.out.println("____________LISTAR____________");
                     System.out.println("-> 1 - Nome");
                     System.out.println("-> 2 - Cidade");
+                    System.out.println("-> 3 - Cancelar");
                     System.out.print("-> ");
 
                     do {
                         try {
                             opcao = sc.nextInt();
-                            if(opcao < 1 || opcao > 2) System.out.println("-> Opção inválida!");
+                            if(opcao < 1 || opcao > 3) System.out.println("-> Opção inválida!");
                         } catch (Exception e) {
                             System.out.println("-> Digite um número!");
                             sc.next();
                             break;
                         }
-                    } while (opcao < 1 || opcao > 2); // Enquanto a opção for inválida continua no loop
+                    } while (opcao < 1 || opcao > 3); // Enquanto a opção for inválida continua no loop
 
                     if(opcao == 1) { // Se a opção for 1, lista por nome   
                         System.out.print("\n-> Digite o nome: ");
