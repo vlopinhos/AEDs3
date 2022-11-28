@@ -21,7 +21,7 @@ class Comparador implements Comparator<HuffmanNode> {
 public class HuffmanTree {
 
     public static void deleteTxtFiles() {
-        String[] files = { "copy.txt", "huffmanCode.txt", "huffmanTable.txt", "comprimido.bin" };
+        String[] files = { "copy.txt", "huffmanCode.txt", "huffmanTable.txt", "comprimido.bin", "descomprimido.txt" };
         for (String file : files) {
             File f = new File(file);
             if (f.exists()) {
@@ -235,7 +235,6 @@ public class HuffmanTree {
         RandomAccessFile arq = new RandomAccessFile("copy.txt", "r");
         RandomAccessFile arq2 = new RandomAccessFile("comprimido.bin", "rw");
 
-
         arq.seek(0);
         while (arq.getFilePointer() < arq.length()) {
             String line = arq.readLine();
@@ -268,8 +267,58 @@ public class HuffmanTree {
         return true;
     }
 
-    public static boolean descompactar(String fileName) {
+    public static String removeZeroEsq(String codigo) {
+        String cod = "";
 
+        for (int i = 0; i < codigo.length(); i++) {
+            if (codigo.charAt(i) == '1') {
+                cod = codigo.substring(i);
+                break;
+            }
+        }
+
+        return cod;
+    }
+
+    public static boolean descompactar(String fileName) throws IOException {
+
+        compactar("banco.bin");
+
+        HashMap<String, Character> map = new HashMap<String, Character>();
+        RandomAccessFile huff = new RandomAccessFile("huffmanCode.txt", "r");
+
+        huff.seek(0);
+        while (huff.getFilePointer() < huff.length()) {
+            String line = huff.readLine();
+            String[] split = line.split("=");
+            String codigo = split[1];
+            codigo = removeZeroEsq(codigo);
+            char c = split[0].charAt(1);
+            map.put(removeMetaDados(codigo), c);
+            split = null;
+        }
+
+        huff.close();
+
+        RandomAccessFile raf = new RandomAccessFile(fileName, "r");
+        RandomAccessFile arq = new RandomAccessFile("descomprimido.txt", "rw");
+        if(arq.length() > 0) {
+            arq.setLength(0);
+        }
+
+        raf.seek(0);
+        while (raf.getFilePointer() < raf.length()) {
+            int bin = raf.read();
+            String codigo = Integer.toBinaryString(bin);
+            codigo = removeMetaDados(codigo);
+            if (map.get(codigo) != null) {
+                if(map.get(codigo) == ';') arq.writeChars("\n");
+                else arq.writeChar(map.get(codigo));
+            }
+        }
+
+        arq.close();
+        raf.close();
         return true;
     }
 }

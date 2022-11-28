@@ -392,8 +392,7 @@ public class Main extends CRUD {
                         if(HuffmanTree.compactar(name)) System.out.println("\n-> Compactado com sucesso!\n");
                         else System.out.println("\n-> Erro ao compactar!");
                     }else if(opcao == 2) { // Se a opção for 2, descompacta o arquivo
-                        System.out.print("\n-> Digite o nome do arquivo: ");
-                        String name = sc.next();
+                        String name = "comprimido.bin";
                         if(HuffmanTree.descompactar(name)) System.out.println("\n-> Descompactado com sucesso!\n");
                         else System.out.println("\n-> Erro ao descompactar!");
                     }
