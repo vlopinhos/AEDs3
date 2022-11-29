@@ -243,6 +243,8 @@ public class HuffmanTree { // Classe que representa a árvore de Huffman
     }
 
     public static boolean compactar(String fileName) throws IOException { // Método que compacta o arquivo
+        long start = System.currentTimeMillis(); // Variável que armazena o tempo inicial
+
         deleteTxtFiles(); // Chama o método que deleta os arquivos .txt
         createTxt(fileName); // Chama o método que cria os arquivos .txt
         HashMap<Character, Integer> map = createHash(); // Define um HashMap com o caractere e a frequência
@@ -253,6 +255,15 @@ public class HuffmanTree { // Classe que representa a árvore de Huffman
 
         File copia = new File("copy.txt"); // Abre o arquivo .txt com a cópia do texto 
         copia.delete(); // Deleta o arquivo .txt com a cópia do texto
+        
+        long time = (System.currentTimeMillis() - start); // Calcula o tempo de execução do programa em milissegundos
+        float tamanhoOriginal = new File(fileName).length(); // Calcula o tamanho do arquivo original
+        float tamanho = new File("comprimido.bin").length(); // Calcula o tamanho do arquivo compactado
+
+        System.out.println("\nTempo de execução: " + time + " milissegundos"); // Imprime o tempo de execução do programa
+        System.out.println("Tamanho do arquivo original: " + tamanhoOriginal + " bytes"); // Imprime o tamanho do arquivo original
+        System.out.println("Tamanho do arquivo compactado: " + tamanho + " bytes"); // Imprime o tamanho do arquivo compactado
+        System.out.println("Taxa de compressão: " + (tamanhoOriginal / tamanho) + " vezes"); // Imprime a taxa de compressão
 
         return true; // Retorna true
     }
@@ -271,8 +282,7 @@ public class HuffmanTree { // Classe que representa a árvore de Huffman
     }
 
     public static boolean descompactar(String fileName) throws IOException { // Método que descompacta o arquivo
-
-        compactar("banco.bin"); // Chama o método que compacta o arquivo (precisa ser compactado para gerar o código de Huffman)
+        long start = System.currentTimeMillis(); // Variável que armazena o tempo inicial
 
         HashMap<String, Character> map = new HashMap<String, Character>(); // Cria um HashMap com o código de Huffman e o caractere
         RandomAccessFile huff = new RandomAccessFile("huffmanCode.txt", "r"); // Abre o arquivo .txt com o código de Huffman
@@ -309,6 +319,11 @@ public class HuffmanTree { // Classe que representa a árvore de Huffman
 
         arq.close();
         raf.close();
+
+        long time = (System.currentTimeMillis() - start); // Calcula o tempo de execução do programa em milissegundos
+
+        System.out.println("\nTempo de execução: " + time + " milissegundos"); // Imprime o tempo de execução do programa
+
         return true;
     }
 }

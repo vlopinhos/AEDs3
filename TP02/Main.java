@@ -401,7 +401,6 @@ public class Main extends CRUD {
                     break;
                 case 11: // LZW
                     System.out.println("LZW:");
-                    // TODO
                     break;
                 case 0: // Sair
                     System.out.println("-> Saindo...");
